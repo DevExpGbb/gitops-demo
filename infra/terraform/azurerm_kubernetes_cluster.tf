@@ -17,13 +17,6 @@ resource "azurerm_kubernetes_cluster" "cluster01" {
     dns_prefix = "${var.prefix}-gitops-demo-cluster01"
     kubernetes_version = var.kubernetes_version
     
-    linux_profile {
-        admin_username = var.GITHUB_USER
-        ssh_key {
-            key_data = local.ssh_public_key
-        }
-    }
-    
     default_node_pool {
         name = "systemnp01"
         node_count = var.default_node_pool.systemnp-node-count
