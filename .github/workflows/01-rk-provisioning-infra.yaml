@@ -24,6 +24,8 @@ jobs:
         run: |
           az account show
           az group list
+      - uses: actions/checkout@v4
+
       - name: 'Terraform: Init'
         working-directory: ./infra/terraform/
         run: terraform init
