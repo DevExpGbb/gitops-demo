@@ -23,3 +23,12 @@ jobs:
         run: |
           az account show
           az group list
+      - name: 'Terraform: Init'
+        working-directory: infra/terraform
+        run: terraform init
+      - name: 'Terraform: Plan'
+        working-directory: infra/terraform
+        run: terraform plan -out tfplan
+      - name: 'Terraform: Apply'
+        working-directory: infra/terraform
+        run: terraform apply tfplan
