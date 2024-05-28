@@ -1,4 +1,4 @@
-name: Run Azure Login with OIDC
+name: Provision Infra with TF
 on: 
   workflow_dispatch:
   push:
@@ -13,14 +13,14 @@ jobs:
     environment: rkdemo
     runs-on: ubuntu-latest
     steps:
-      - name: 'Az CLI login'
+      - name: 'Az CLI login with Workload Identity Federation'
         uses: azure/login@v2.1.0
         with:
           client-id: ${{ secrets.ARM_CLIENT_ID }}
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
           subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
-      - name: 'Run az commands'
+      - name: 'Validate Workload Identity Auth Works'
         run: |
           az account show
           az group list
@@ -28,7 +28,7 @@ jobs:
 
       - name: 'Terraform: Init'
         working-directory: ./infra/terraform/
-        run: terraform init
+        run: terraform init -backend-config="resource_group_name=${TF_BACKEND_STORAGE_RESOURCE_GROUP_NAME}" -backend-config="storage_account_name=${TF_BACKEND_STORAGE_ACCOUNT_NAME}" -backend-config="container_name=${TF_BACKEND_STORAGE_CONTAINER_NAME}"
 
       - name: 'Terraform: Plan'
         working-directory: ./infra/terraform/
