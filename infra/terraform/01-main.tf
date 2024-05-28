@@ -11,11 +11,11 @@ terraform {
   }
   backend "azurerm" {
     key                   = "terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
 
 provider "azurerm" {
-  use_oidc = true
   features {}
 }
 
