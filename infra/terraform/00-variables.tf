@@ -12,10 +12,6 @@ variable "kubernetes_version" {
   default = null
 }
 
-variable "GITHUB_USER" {
-  type = string
-}
-
 variable "default_node_pool" {
   type = object({
     node_count = number
