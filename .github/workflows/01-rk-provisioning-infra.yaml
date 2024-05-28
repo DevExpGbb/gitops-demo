@@ -53,5 +53,4 @@ jobs:
         
       - name: 'Terraform: Apply'
         working-directory: ./infra/terraform/
-        env:
         run: terraform apply tfplan
