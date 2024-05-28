@@ -13,15 +13,35 @@ jobs:
     environment: rkdemo
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
-        uses: actions/checkout@v4
+      - name: 'Az CLI login with Workload Identity Federation'
+        uses: azure/login@v2.1.0
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+
+      - name: 'Validate Workload Identity Auth Works'
+        run: |
+          az account show
+          az group list
+      - uses: actions/checkout@v4
 
       - name: 'Terraform: Init'
         working-directory: ./infra/terraform/
+        env:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_USE_OIDC: true
         run: terraform init -backend-config="resource_group_name=${TF_BACKEND_STORAGE_RESOURCE_GROUP_NAME}" -backend-config="storage_account_name=${TF_BACKEND_STORAGE_ACCOUNT_NAME}" -backend-config="container_name=${TF_BACKEND_STORAGE_CONTAINER_NAME}"
 
       - name: 'Terraform: Plan'
         working-directory: ./infra/terraform/
+        env:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_USE_OIDC: true
         run: terraform plan -out tfplan
         
       - name: 'Terraform: Apply'
