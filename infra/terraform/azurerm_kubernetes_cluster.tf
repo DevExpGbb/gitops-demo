@@ -1,19 +1,7 @@
-resource "azurerm_user_assigned_identity" "aks-cluster01" {
-    name = "${var.prefix}-gitops-demo-cluster01-identity"
-    location = azurerm_resource_group.default.location
-    resource_group_name = azurerm_resource_group.default.name
-}
-
-resource "azurerm_user_assigned_identity" "kubelet" {
-    name = "${var.prefix}-gitops-demo-cluster01-kubelet-identity"
-    resource_group_name = var.resource_group.name
-    location = var.resource_group.location
-}
-
 resource "azurerm_kubernetes_cluster" "cluster01" {
     name = "${var.prefix}-gitops-demo-cluster01"
     location = azurerm_resource_group.default.location
-    resource_group_name = azurerm_resource_group.default.name
+    resource_group_name = data.azurerm_resource_group.default.name
     dns_prefix = "${var.prefix}-gitops-demo-cluster01"
     kubernetes_version = var.kubernetes_version
     

@@ -48,6 +48,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
           TF_VAR_prefix: ${{ vars.PREFIX }}
+          TF_VAR_resource_group_name: ${{ vars.RESOURCE_GROUP_NAME }}
 
         run: terraform plan -out tfplan
         

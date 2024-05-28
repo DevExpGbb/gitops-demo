@@ -8,11 +8,18 @@ resource "github_repository_environment" "default" {
 }
 
 
-resource "github_actions_environment_variable" "PREFIX" {
+resource "github_actions_environment_variable" "prefix" {
     environment = github_repository_environment.default.environment
     repository = data.github_repository.default.name
     variable_name = "PREFIX"
     value = var.prefix
+}
+
+resource "github_actions_environment_variable" "resource_group_name" {
+    environment = github_repository_environment.default.environment
+    repository = data.github_repository.default.name
+    variable_name = "RESOURCE_GROUP_NAME"
+    value = azurerm_resource_group.workload-identity.name
 }
 
 resource "github_actions_environment_secret" "tfprovider-client-id" {
