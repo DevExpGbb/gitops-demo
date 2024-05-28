@@ -1,6 +1,6 @@
 resource "azurerm_kubernetes_cluster" "cluster01" {
     name = "${var.prefix}-gitops-demo-cluster01"
-    location = azurerm_resource_group.default.location
+    location = data.azurerm_resource_group.default.location
     resource_group_name = data.azurerm_resource_group.default.name
     dns_prefix = "${var.prefix}-gitops-demo-cluster01"
     kubernetes_version = var.kubernetes_version
