@@ -36,7 +36,7 @@ jobs:
           TF_BACKEND_STORAGE_RESOURCE_GROUP_NAME: ${{ vars.TF_BACKEND_STORAGE_RESOURCE_GROUP_NAME }}
           TF_BACKEND_STORAGE_ACCOUNT_NAME: ${{ vars.TF_BACKEND_STORAGE_ACCOUNT_NAME }}
           TF_BACKEND_STORAGE_CONTAINER_NAME: ${{ vars.TF_BACKEND_STORAGE_CONTAINER_NAME }}
-          TV_VARS_prefix: ${{ vars.PREFIX}}
+          TV_VAR_prefix: ${{ vars.PREFIX}}
         run: |
           terraform init -backend-config="resource_group_name=$TF_BACKEND_STORAGE_RESOURCE_GROUP_NAME" -backend-config="storage_account_name=$TF_BACKEND_STORAGE_ACCOUNT_NAME" -backend-config="container_name=$TF_BACKEND_STORAGE_CONTAINER_NAME"
 
