@@ -17,7 +17,7 @@ resource "azurerm_kubernetes_cluster" "cluster01" {
         object_id = azurerm_user_assigned_identity.kubelet.principal_id
         user_assigned_identity_id = azurerm_user_assigned_identity.kubelet.id
     }
-    
+
     default_node_pool {
         name = "systemnp01"
         node_count = var.default_node_pool.node_count
@@ -31,7 +31,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "np01" {
     node_count = var.default_node_pool.node_count
     vm_size = var.default_node_pool.vm_size
     os_disk_size_gb = 30
-    vnet_subnet_id = azurerm_subnet.aks.id
     enable_auto_scaling = true
     min_count = 1
     max_count = 3
