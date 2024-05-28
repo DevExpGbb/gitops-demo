@@ -1,6 +1,12 @@
 variable "prefix" {
   type    = string
   default = "gbb"
+  description = "A unique prefix is needed - like your initials or alias"
+}
+
+variable "location" {
+  type = string
+  default = "eastus"
 }
 
 variable "github_org_name" {
