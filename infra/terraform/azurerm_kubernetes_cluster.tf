@@ -5,6 +5,19 @@ resource "azurerm_kubernetes_cluster" "cluster01" {
     dns_prefix = "${var.prefix}-gitops-demo-cluster01"
     kubernetes_version = var.kubernetes_version
     
+    identity {
+        type = "UserAssigned"
+        identity_ids = [
+            azurerm_user_assigned_identity.cluster.id
+        ]
+    }
+
+    kubelet_identity {
+        client_id = azurerm_user_assigned_identity.kubelet.client_id
+        object_id = azurerm_user_assigned_identity.kubelet.principal_id
+        user_assigned_identity_id = azurerm_user_assigned_identity.kubelet.id
+    }
+    
     default_node_pool {
         name = "systemnp01"
         node_count = var.default_node_pool.node_count
