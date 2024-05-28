@@ -34,6 +34,10 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
         run: |
+          export TF_BACKEND_STORAGE_RESOURCE_GROUP_NAME=$TF_BACKEND_STORAGE_RESOURCE_GROUP_NAME
+          export TF_BACKEND_STORAGE_ACCOUNT_NAME=$TF_BACKEND_STORAGE_ACCOUNT_NAME
+          export TF_BACKEND_STORAGE_CONTAINER_NAME=$TF_BACKEND_STORAGE_CONTAINER_NAME
+
           terraform init \
             -backend-config="resource_group_name=$TF_BACKEND_STORAGE_RESOURCE_GROUP_NAME" \
             -backend-config="storage_account_name=$TF_BACKEND_STORAGE_ACCOUNT_NAME" \
