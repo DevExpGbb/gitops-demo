@@ -26,11 +26,9 @@ variable "np01" {
   type = object({
     node_count = number
     vm_size = string
-    systemnp-node-count = number
   })
   default = {
     node_count = 1
     vm_size = "Standard_D2s_v3"
-    systemnp-node-count = 1
   }
 }

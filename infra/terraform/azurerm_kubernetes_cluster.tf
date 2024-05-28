@@ -7,7 +7,7 @@ resource "azurerm_kubernetes_cluster" "cluster01" {
     
     default_node_pool {
         name = "systemnp01"
-        node_count = var.default_node_pool.systemnp-node-count
+        node_count = var.default_node_pool.node_count
         vm_size = var.default_node_pool.vm_size
     }
 }
